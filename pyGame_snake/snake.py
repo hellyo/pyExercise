@@ -16,10 +16,8 @@ font_height = font.get_linesize()
 txt = []
 
 while True:
-    print("bb")
+    
     event = pygame.event.wait()
-    print("aa")
-    print(event)
     txt.append(str(event))
     txt = txt[-int(SCREEN_SIZE[1]/font_height):]
     
@@ -32,4 +30,5 @@ while True:
         y -= font_height
     
     pygame.display.update()
-
+    # pygame.time.wait(45)
+    print(pygame.time.get_ticks())
