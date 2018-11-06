@@ -21,6 +21,7 @@ mouse = pygame.image.load(mouseImg)#.convert_alpha()
 
 while True:
     for event in pygame.event.get():
+        print(num)
         if event.type == locals.QUIT:
             exit()
     screen.blit(back,(0,0))
