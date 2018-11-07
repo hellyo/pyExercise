@@ -7,7 +7,7 @@ from pygame import locals
 from sys import exit
 import time
 
-SCREEN_SIZE = (512,1024)
+SCREEN_SIZE = (600,800)
 pygame.init()
 screen = pygame.display.set_mode(SCREEN_SIZE,0,32)
 #title
