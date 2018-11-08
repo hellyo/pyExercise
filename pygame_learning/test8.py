@@ -1,42 +1,56 @@
 #!/usr/bin/env python
- 
+# 调色盘 
 import pygame
 from pygame.locals import *
 from sys import exit
+import time
  
 pygame.init()
 screen = pygame.display.set_mode((640, 480), 0, 32)
- 
-color1 = (221, 99, 20)
-color2 = (96, 130, 51)
-factor = 0.
- 
-def blend_color(color1, color2, blend_factor):
-    r1, g1, b1 = color1
-    r2, g2, b2 = color2
-    r = r1 + (r2 - r1) * blend_factor
-    g = g1 + (g2 - g1) * blend_factor
-    b = b1 + (b2 - b1) * blend_factor
-    return int(r), int(g), int(b)
- 
+
+def getColorBar(height):
+    r_bar = pygame.surface.Surface((640,height))
+    g_bar = pygame.surface.Surface((640,height))
+    b_bar = pygame.surface.Surface((640,height))
+
+    for x in range(640):
+        val = int((x/640) * 255)   
+        r = (val,0,0)
+        g = (0,val,0)
+        b = (0,0,val)
+
+        rect = Rect(x,0,1,height)
+        pygame.draw.rect(r_bar,r,rect)
+        pygame.draw.rect(g_bar,g,rect)
+        pygame.draw.rect(b_bar,b,rect)
+    
+    return r_bar,g_bar,b_bar
+
+r_ctrl,g_ctrl,b_ctrl = getColorBar(80)
+
+
+
+c = [0,0,0]
 while True:
- 
     for event in pygame.event.get():
         if event.type == QUIT:
             exit()
  
-    screen.fill((255,255,255))
- 
-    tri = [ (0, 120), (639, 100), (639, 140) ]
-    pygame.draw.polygon(screen, (0, 255, 0), tri)
-    pygame.draw.circle(screen, (0, 0, 0), (int(factor * 639.0), 120), 10)
- 
-    x, y = pygame.mouse.get_pos()
-    if pygame.mouse.get_pressed()[0]:
-        factor = x / 639.0
-        pygame.display.set_caption("Pygame Color Blend Test - %.3f" % factor)
- 
-    color = blend_color(color1, color2 , factor)
-    pygame.draw.rect(screen, color, (0, 240, 640, 240))
- 
+    screen.fill((0,0,0))
+    screen.blit(r_ctrl,(0,0))
+    screen.blit(g_ctrl,(0,80))
+    screen.blit(b_ctrl,(0,160))
+    
+    x,y = pygame.mouse.get_pos()
+
+    if pygame.mouse.get_pressed()[0]:   #左键被按下
+        for i in range(3):
+            if  i*80 < y < (i+1) * 80:
+                c[i] = int((x/640) * 255)
+    for i in range(3):
+        pygame.draw.circle(screen,(255,255,255),(int((c[i]/255) * 640),i * 80 + 40),10)
+
+    pygame.draw.rect(screen,(c),Rect(0,240,640,240))
+    pygame.display.set_caption(str(c))
     pygame.display.update()
+    time.sleep(0.025)
