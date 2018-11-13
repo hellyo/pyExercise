@@ -2,4 +2,5 @@
   目前找到的原因是刷新太快，也就是帧率，可以使用pygame.time.get_ticks()来确定下，
   目前的解决方案是每帧刷新前使用pygame.time.wait(time)来延迟一会儿
 2.pygame.event.get()   pygame.event.wait() pygame.event.poll()等方法的区别
-3.
+3.pygame.display.update() 和 pygame.display.flip()
+
