@@ -47,7 +47,7 @@ def run():
 	pygame.init()
 	screen = pygame.display.set_mode(SCREENSIZE,0)
 
-	ball = pygame.image.load("mouse.png").convert_alpha()
+	ball = pygame.image.load("ball.png").convert_alpha()
 	clock = pygame.time.Clock()
 
 	balls = []

@@ -22,7 +22,7 @@ def run():
 	
 	font = pygame.font.SysFont(pygame.font.get_default_font(),24)
 	
-	ball = pygame.image.load("mouse.png").convert_alpha()
+	ball = pygame.image.load("ball.png").convert_alpha()
 	
 	points = []
 
