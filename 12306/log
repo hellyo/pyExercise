@@ -1,0 +1,11 @@
+登录
+二维码 https://kyfw.12306.cn/passport/web/create-qr64
+      data:'otn'
+      return : image,result_code,result_message,uuid
+
+
+
+查询 设定好查询条件，一旦查到了，发送邮件通知我，并且预定下来
+
+
+预定
