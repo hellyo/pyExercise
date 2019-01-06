@@ -12,6 +12,16 @@
                             "X-Requested-With": "XMLHttpRequest"
                          }
              },
-    "checkUrl":"https://kyfw.12306.cn/passport/web/checkqr"
+    "checkUrl":"https://kyfw.12306.cn/passport/web/checkqr",
+    "queryData":{        
+        "url":"https://kyfw.12306.cn/otn/leftTicket/queryZ",
+        "date":"2019-01-31",
+        "fromW":"SHH",
+        "toW":"KMM",
+        "ticketType":"ADULT"
+    },
+    "explanation":{
+        "purpose_codes":"是学生票（0x00）还是成人票（ADULT）"
+    }
 
 }

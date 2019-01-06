@@ -30,6 +30,11 @@ def loginByQrCode(session,data):
     return False
 
 def showQrCode(base64Str):
+    '''
+    @description:根据base64字符串显示图片
+    @param {type} 
+    @return: 
+    '''
     imageData = base64.b64decode(base64Str)
     with open("qrcode.jpg","wb") as f:
         f.write(imageData)
@@ -38,6 +43,11 @@ def showQrCode(base64Str):
     img.show()
 
 def checkQR(session,uuid,checkUrl):
+    '''
+    @description: 扫码后检查是否登录成功
+    @param {type} 
+    @return: 
+    '''
     checkData = {
         "uuid":uuid,
         "appid":"otn"
@@ -48,15 +58,47 @@ def checkQR(session,uuid,checkUrl):
     statusCode = checkRes["result_code"]        
     return statusCode
 
-def search(fromW,toW,date,** kwargs):        
+def searchForTicket(s,queryData,**kwargs):
+    '''
+    @description: 余票查询
+    @param s：requests.sessionc对象，当前和12306的连接对象 
+    @param queryData:dict = { 
+                formW：str 出发站
+                toW:str 到达站
+                date:str 出发日期，格式：yyyy-mm-dd
+                ticketType:str 票的类型，成人票（ADULT）还是学生票(0x00)
+            }
+    @return: tuple(bool:是否有余票)
+    '''
+    searchData = {
+        "leftTicketDTO.train_date":queryData["date"],
+        "leftTicketDTO.from_station":queryData["fromW"],
+        "leftTicketDTO.to_station":queryData["toW"],
+        "purpose_codes":queryData["ticketType"]
+    }    
+    url = queryData["url"]
+    url += "?"
+    for item in searchData:
+        url += (item + "=" + searchData[item] + "&")
+
+    res = s.get(url[:-1])
+    print(res.text)
+
+
+def orderTicket():
+    pass
+
+def sendmail():
     pass
 
 if __name__ == "__main__":
-    with open("data","r",encoding="utf-8") as f:
+    with open("12306/data","r",encoding="utf-8") as f:
         data = json.loads(f.read())
     s = requests.session()    
     loginRes = loginByQrCode(s,data)
     if loginRes:
-        pass
+        searchForTicket(s,data["queryData"])
+        # orderTicket()
+
 
 
