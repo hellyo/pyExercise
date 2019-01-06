@@ -8,7 +8,12 @@ import requests,base64,json
 # import matplot
 from PIL import Image
 
-def loginByQrCode(session,data):    
+def loginByQrCode(session,data): 
+    '''
+    @description: 通过扫描二维码登陆12306
+    @param {type} 
+    @return: True:登陆成功，False:登陆失败
+    '''   
     qrcodeUrl = data["qrcode"]["Url"]
     headers = data["qrcode"]["headers"]
     postData = data["qrcode"]["data"]
@@ -42,6 +47,9 @@ def checkQR(session,uuid,checkUrl):
     checkRes = json.loads(checkResponse.text)
     statusCode = checkRes["result_code"]        
     return statusCode
+
+def search(fromW,toW,date,** kwargs):        
+    pass
 
 if __name__ == "__main__":
     with open("data","r",encoding="utf-8") as f:
